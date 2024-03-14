@@ -1,108 +1,80 @@
-<%@page import="in.co.pro4.utility.DataValidator"%>
-<%@page import="in.co.pro4.utility.DataUtility"%>
-<%@page import="in.co.pro4.utility.ServletUtility"%>
-<%@page import="in.co.pro4.controller.ORSView"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@page import="com.rays.pro4.controller.LoginCtl"%>
+<%@page import="com.rays.pro4.Util.DataUtility"%>
+<%@page import="com.rays.pro4.Util.ServletUtility"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" type="image/png" href="<%=ORSView.APP_CONTEXT%>/img/Raysicon.png" sizes="16*16" />
 <meta charset="ISO-8859-1">
-<title>LogIn Page</title>
+<title>Login Page</title>
 </head>
-
 <body>
 	<form action="<%=ORSView.LOGIN_CTL%>" method="post">
-<%@include file="Header.jsp"%>
+		<%@ include file="Header.jsp"%>
 
-		<jsp:useBean id="bean" class="in.co.pro4.bean.UserBean" scope="request"></jsp:useBean>
+		<jsp:useBean id="bean" class="com.rays.pro4.Bean.UserBean"
+			scope="request"></jsp:useBean>
+
 		<%
 			String URI = (String) request.getAttribute("uri");
 		%>
 
-		<input type="hidden" name="URI"  value="<%=URI%>">
-		
+		<input type="hidden" name="URI" value="<%=URI%>">
+
 		<center>
 			<h1>Login</h1>
 
-			<h2>
-				<font color="red">
-					<%=ServletUtility.getErrorMessage(request)%>
+			<H2>
+				<font color="red"> <%=ServletUtility.getErrorMessage(request)%>
 				</font>
-			</h2>
+			</H2>
 			<h2>
-				<font color="green">
-					 <%=ServletUtility.getSuccessMessage(request)%>
-				</font>
+				<font color="green"> <%=ServletUtility.getSuccessMessage(request)%></font>
 			</h2>
 
-			<input type="hidden" name="id" value="<%=bean.getId()%>"> 
-			<input type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
-			<input type="hidden" name="modifiedBy" value="<%=bean.getModifiedBy()%>"> 
-			<input type="hidden" name="createdDatetime" value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
-			<input type="hidden" name="modifiedDatetime" value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
+			<input type="hidden" name="id" value="<%=bean.getId()%>"> <input
+				type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
+			<input type="hidden" name="modifiedBy"
+				value="<%=bean.getModifiedBy()%>"> <input type="hidden"
+				name="createdDatetime"
+				value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
+			<input type="hidden" name="modifiedDatetime"
+				value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
 
 			<table>
 				<tr>
-					<th>Login Id<font color="red">* </font>:</th>
-					<td>
-						<input type="text"  
-								name="login" 
-								size="30" 
-								placeholder="Enter Login Id"
-								value="<%=DataUtility.getStringData(bean.getLogIn())%>">
-					</td>
-					<td style="position: fixed;">
-						<font color="red">
-							<%=ServletUtility.getErrorMessage("login", request)%>
-						</font>
-					</td>
+					<th>LoginId <font color="red">*</font></th>
+					<td><input type="text" name="login" size=30
+						placeholder="Enter valid Email-Id"
+						value="<%=DataUtility.getStringData(bean.getLogin())%>"><font
+						style="position: fixed" color="red"> <%=ServletUtility.getErrorMessage("login", request)%></font></td>
 				</tr>
 				<tr>
-					<th style="padding: 4px;"></th>
-				</tr>
-				<tr>
-					<th>Password<font color="red">* </font>:</th>
-					<td>
-						<input type="password" 
-								name="password" size="30"
-								placeholder="Enter Password"
-								value="<%=DataUtility.getStringData(bean.getPassword())%>">
-					</td>
-					<td style="position: fixed;">
-						<font color="red">
-							<%=ServletUtility.getErrorMessage("password", request)%>
-						</font>
-					</td>
-				</tr>
-				<tr>
-					<th style="padding: 4px;"></th>
+					<th>Password<font color="red">*</font></th>
+					<td><input type="password" name="password" size=30
+						placeholder="Enter Password"
+						value="<%=DataUtility.getStringData(bean.getPassword())%>"><font
+						style="position: fixed" color="red"> <%=ServletUtility.getErrorMessage("password", request)%></font></td>
 				</tr>
 				<tr>
 					<th></th>
-					<td>
-					
-						<input type="submit" 
-								name="operation"
-								value="<%=LoginCtl.OP_SIGN_IN%>">
-						&nbsp; 
-						<input type="submit" 
-								name="operation" 
-								value="<%=LoginCtl.OP_SIGN_UP%>">
-						&nbsp;
-					</td>
+					<td colspan="2"><input type="submit" name="operation"
+						value="<%=LoginCtl.OP_SIGN_IN%>"> &nbsp; <input
+						type="submit" name="operation" value="<%=LoginCtl.OP_SIGN_UP%>">
+						&nbsp;</td>
 				</tr>
 				<tr>
 					<th></th>
-					<td>
-						<a  href="<%=ORSView.FORGET_PASSWORD_CTL%>">
-							<b>Forget my password</b>
-						</a>&nbsp;
-					</td>
+					<td><a href="<%=ORSView.FORGET_PASSWORD_CTL%>"><b>Forget
+								my password</b></a>&nbsp;</td>
 				</tr>
 			</table>
-		</center>
 	</form>
-	<%@include file="Footer.jsp"%>
+	</center>
+	<%@ include file="Footer.jsp"%>
+
+
 </body>
 </html>

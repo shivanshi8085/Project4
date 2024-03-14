@@ -1,37 +1,36 @@
-<%@page import="java.util.HashMap"%>
-<%@page import="in.co.pro4.model.RoleModel"%>
-<%@page import="in.co.pro4.utility.HTMLUtility"%>
+<%@page import="com.rays.pro4.Model.RoleModel"%>
+<%@page import="com.rays.pro4.Model.UserModel"%>
+<%@page import="com.rays.pro4.Util.HTMLUtility"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="in.co.pro4.utility.DataUtility"%>
-<%@page import="in.co.pro4.utility.ServletUtility"%>
-<%@page import="in.co.pro4.controller.UserListCtl"%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@page import="com.rays.pro4.Util.DataUtility"%>
+<%@page import="com.rays.pro4.Util.ServletUtility"%>
+<%@page import="com.rays.pro4.controller.UserListCtl"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
 <html>
 <head>
+
 <link rel="icon" type="image/png"
-	href="<%=ORSView.APP_CONTEXT%>/img/Raysicon.png" sizes="16*16" />
-<meta charset="ISO-8859-1">
+	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16*16" />
+
 <title>User List</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 <script src="<%=ORSView.APP_CONTEXT%>/js/jquery.min.js"></script>
 <script src="<%=ORSView.APP_CONTEXT%>/js/Checkbox11.js"></script>
 
-
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
-		$("#update").datepicker({
+		$("#udate").datepicker({
 			changeMonth : true,
 			changeYear : true,
-			yearRange : '1995:2010',
+			yearRange : '1980:2002',
 		//  mindefaultDate : "01-01-1962"
 		});
 	});
@@ -39,8 +38,10 @@
 
 </head>
 <body>
-	<jsp:useBean id="bean" class="in.co.pro4.bean.UserBean" scope="request"></jsp:useBean>
+	<jsp:useBean id="bean" class="com.rays.pro4.Bean.UserBean"
+		scope="request"></jsp:useBean>
 	<%@include file="Header.jsp"%>
+
 
 	<form action="<%=ORSView.USER_LIST_CTL%>" method="post">
 
@@ -52,6 +53,7 @@
 					<font color="red"><%=ServletUtility.getErrorMessage(request)%></font>
 					<font color="green"><%=ServletUtility.getSuccessMessage(request)%></font>
 				</h3>
+
 			</div>
 
 			<%
@@ -61,7 +63,7 @@
 
 				int next = DataUtility.getInt(request.getAttribute("nextlist").toString());
 			%>
-            
+
 
 			<%
 				int pageNo = ServletUtility.getPageNo(request);
@@ -76,57 +78,31 @@
 			<table width="100%" align="center">
 				<tr>
 					<th></th>
-					<td align="center"><label>FirstName : </label> <input
-						type="text" name="firstName" style="width: 231px;"
-						placeholder="Enter First Name"
-					 	value="<%=ServletUtility.getParameter("firstName", request)%>">   
-						&emsp;
-						
-						
-			<%-- 	
-				<lable>Gender:</lable> <%
- 	                    HashMap map = new HashMap();
- 		                      map.put("male", "male");
- 		                    map.put("female", "Female");
-       
- 		         String html = HTMLUtility.getList("Gender",String.valueOf(bean.getGender()) , map);
-                              %>
-                               <%=html%>
-                      
-                          &emsp;   --%>
-                    <%--       
-                          <labe>UserId : </label>  
-                          <%=HTMLUtility.getList("id", String.valueOf(bean.getId()), ulist) %> 
-                          	&nbsp;&nbsp;  
-                          
- --%>
+					<td align="center"><label>FirstName</font> :
+					</label> <input type="text" name="firstName" placeholder="Enter First Name"
+						value="<%=ServletUtility.getParameter("firstName", request)%>">
 
-					<%-- 		 <label >Date Of Birth : </label>
-						 <input type="text" 
-						 		id="update" 
-						 		placeholder="Enter Date of birth" 
-						 		name="dob"
-						 		readonly="readonly"
-								value="<%ServletUtility.getParameter("dob", request);%>">  --%>
+						<label></font> </label> <%-- <%=HTMLUtility.getList("roleid", String.valueOf(bean.getRoleId()), rlist) %> --%>
 
+						<label>LoginId</font> :
+					</label> <input type="text" name="loginid" placeholder="Enter Login-Id"
+						value="<%=ServletUtility.getParameter("login", request)%>">
+						&emsp; <label>Role</font> :
+					</label> <%=HTMLUtility.getList("roleid", String.valueOf(bean.getRoleId()), rlist)%>
+						&nbsp; <%-- <%=HTMLUtility.getList("loginid", String.valueOf(bean.getRoleId()), ulist)%>
+ --%> &nbsp; <%-- <label>MobileNo</font> :</label>
+ 					 <input
+						type="number" name="mobile" placeholder="Enter mobile no"
+						value="<%=ServletUtility.getParameter("mobile", request)%>"> --%>
 
+						<%-- 			<label>dob</font> :
+					</label><input type="text" name="dob" id="udate" readonly="readonly"
+						size="25" placeholder="Enter Dob "
+						value="<%=ServletUtility.getParameter("dob", request)%>">
 
-
-
-
-					<label>Login Id : </label>
-					<input type="text" name="loginid" style="width: 231px;"
-						placeholder="Enter Login-Id"
-						value="<%=ServletUtility.getParameter("loginid", request)%>">
-					&emsp;
-
-					<label>Role : </label>
-					<%=HTMLUtility.getList("roleid", String.valueOf(bean.getRoleId()), rlist)%>
-					&nbsp;&nbsp;
-					<input type="submit" name="operation"
-						value="<%=UserListCtl.OP_SEARCH%>"> &nbsp;
-					<input type="submit" name="operation"
-						value="<%=UserListCtl.OP_RESET%>">
+ --%> <input type="submit" name="operation"
+						value="<%=UserListCtl.OP_SEARCH%>"> &nbsp; <input
+						type="submit" name="operation" value="<%=UserListCtl.OP_RESET%>">
 					</td>
 				</tr>
 			</table>
@@ -134,16 +110,17 @@
 
 			<table border="1" width="100%" align="center" cellpadding=6px
 				cellspacing=".2">
-				<tr style="background: read">
+				<tr style="background: skyblue">
 					<th><input type="checkbox" id="select_all" name="select">Select
 						All</th>
+
 					<th>S.No.</th>
 					<th>FirstName</th>
 					<th>LastName</th>
+					<th>Role</th> 
 					<th>LoginId</th>
 					<th>Gender</th>
 					<th>Date Of Birth</th>
-					<th>RoleName</th>
 					<th>Mobile No</th>
 					<th>Edit</th>
 				</tr>
@@ -152,25 +129,22 @@
 					while (it.hasNext()) {
 							bean = it.next();
 							RoleModel model = new RoleModel();
-							
-							 RoleBean rolebean = model.findByPK(bean.getRoleId());
+							RoleBean rolebean = new RoleBean();
+							rolebean = model.findByPK(bean.getRoleId());
 				%>
 
-
 				<tr align="center">
-				
 					<td><input type="checkbox" class="checkbox" name="ids"
 						value="<%=bean.getId()%>"
 						<%if (userBean.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN) {%>
-						<%="disabled"%> <%}%>>
-						</td>
+						<%="disabled"%> <%}%>></td>
 					<td><%=index++%></td>
 					<td><%=bean.getFirstName()%></td>
 					<td><%=bean.getLastName()%></td>
-					<td><%=bean.getLogIn()%></td>
+					<td><%=rolebean.getName()%></td> 
+					<td><%=bean.getLogin()%></td>
 					<td><%=bean.getGender()%></td>
 					<td><%=bean.getDob()%></td>
-					<td><%=rolebean.getName()%></td>
 					<td><%=bean.getMobileNo()%></td>
 					<td><a href="UserCtl?id=<%=bean.getId()%>"
 						<%if (userBean.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN) {%>
@@ -202,10 +176,20 @@
 						value="<%=UserListCtl.OP_DELETE%>"></td>
 					<td><input type="submit" name="operation"
 						value="<%=UserListCtl.OP_NEW%>"></td>
+
+					<%--  <%	UserModel model = new UserModel();
+                     %>
+                     
+                     <% if(list.size() < pageSize || model.nextPK()-1 == bean.getId() ){%>
+
+                     		<td align="right"><input type="submit" name="operation" disabled="disabled" value="<%=UserListCtl.OP_NEXT%>"></td>
+                     <% }else{%>
+                     		<td align="right"><input type="submit" name="operation" value="<%=UserListCtl.OP_NEXT%>"></td>
+                     <%} %>
+        --%>
 					<td align="right"><input type="submit" name="operation"
 						value="<%=UserListCtl.OP_NEXT%>"
-						<%=(list.size() < pageSize || next == 0) ? "disabled" : ""%>>
-					</td>
+						<%=(list.size() < pageSize || next == 0) ? "disabled" : ""%>></td>
 
 
 
@@ -228,10 +212,12 @@
 	</br>
 	</br>
 	</br>
+	</br>
+	</br>
+	</br>
 
 	</center>
 
 	<%@include file="Footer.jsp"%>
-
 </body>
 </html>

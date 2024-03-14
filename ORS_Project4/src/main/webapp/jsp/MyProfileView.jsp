@@ -1,194 +1,108 @@
-<%@page import="in.co.pro4.utility.HTMLUtility"%>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@page import="com.rays.pro4.controller.MyProfileCtl"%>
+<%@page import="com.rays.pro4.Util.HTMLUtility"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="in.co.pro4.controller.MyProfileCtl"%>
-<%@page import="in.co.pro4.utility.DataUtility"%>
-<%@page import="in.co.pro4.utility.ServletUtility"%>
-<%@page import="in.co.pro4.controller.ORSView"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="com.rays.pro4.Util.DataUtility"%>
+<%@page import="com.rays.pro4.Util.ServletUtility"%>
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>My Profile</title>
-
-<link rel="icon" type="image/png" href="<%=ORSView.APP_CONTEXT%>/img/Raysicon.png" sizes="16*16" />
-
-<meta charset="utf-8">
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script>
-	$(function() {
-		$("#udate").datepicker({
-			changeMonth : true,
-			changeYear : true,
-			yearRange : '1995:2010',
-		//  mindefaultDate : "01-01-1962"
-		});
-	});
-</script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
-	<form action="<%=ORSView.MY_PROFILE_CTL%>" method="post">
 
-	<script type="text/javascript" src="../js/calendar.js"></script>
-	<jsp:useBean id="bean" class="in.co.pro4.bean.UserBean" scope="request"></jsp:useBean>
+<form action="<%=ORSView.MY_PROFILE_CTL%>" method="post">
 
-		<center>
-			<h1>My Profile</h1>
+        <%@ include file="Header.jsp"%>
+        <script type="text/javascript" src="../js/calendar.js"></script>
+        <jsp:useBean id="bean" class="com.rays.pro4.Bean.UserBean"
+        scope="request"></jsp:useBean>
 
-			<h2>
-				<font color="red"> 
-					<%=ServletUtility.getErrorMessage(request)%>
-				</font>
-			</h2>
-			
-			<input type="hidden" name="id" value="<%=bean.getId()%>"> 
-			<input type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
-			<input type="hidden" name="modifiedBy" value="<%=bean.getModifiedBy()%>"> 
-			<input type="hidden" name="createdDatetime" value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
-			<input type="hidden" name="modifiedDatetime" value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
+        <center>
+            <h1>My Profile</h1>
+            
+            <H2>
+                <font color="red"> <%=ServletUtility.getErrorMessage(request)%>
+                </font>
+            </H2>
+            <input type="hidden" name="id" value="<%=bean.getId()%>">
+            <input type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
+            <input type="hidden" name="modifiedBy" value="<%=bean.getModifiedBy()%>">
+            <input type="hidden" name="createdDatetime" value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
+            <input type="hidden" name="modifiedDatetime" value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
+            
+
+            <table>
+                <tr>
+                    <th align="left">LoginId*</th>
+                    <td><input type="text" name="login"
+                        value="<%=DataUtility.getStringData(bean.getLogin())%>"readonly="readonly"><font
+                        color="red"> <%=ServletUtility.getErrorMessage("login", request)%></font></td>
+                </tr>
+
+                <tr>
+                    <th align="left">First Name*</th>
+                    <td><input type="text" name="firstName"
+                        value="<%=DataUtility.getStringData(bean.getFirstName())%>"><font
+                        color="red"> <%=ServletUtility.getErrorMessage("firstName", request)%></font></td>
+                </tr>
+                <tr>
+                    <th align="left">Last Name*</th>
+                    <td><input type="text" name="lastName"
+                        value="<%=DataUtility.getStringData(bean.getLastName())%>"><font
+                        color="red"> <%=ServletUtility.getErrorMessage("lastName", request)%></font></td>
+                </tr>
+                <tr>
+                    <th align="left">Gender</th>
+                    <td>
+                    <input type=" text" name="gender" value="<%= DataUtility.getStringData(bean.getGender())%>">
+                        <%-- <%
+                            HashMap map = new HashMap();
+                            map.put("M", "Male");
+                            map.put("F", "Female");
+
+                            String htmlList = HTMLUtility.getList("gender", bean.getGender(),
+                                    map);
+                        %> <%=htmlList%> --%>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left">Mobile No*</th>
+                    <td><input type="text" name="mobileNo"
+                        value="<%=DataUtility.getStringData(bean.getMobileNo())%>"><font
+                        color="red"> <%=ServletUtility.getErrorMessage("mobileNo", request)%></font></td>
+                </tr>
+
+                <tr>
+                    <th align="left">Date Of Birth (mm/dd/yyyy)</th>
+                    <td><input type="text" name="dob" readonly="readonly"
+                        value="<%=DataUtility.getDateString(bean.getDob())%>">
+                 <!--   <a href="javascript:getCalendar(document.forms[0].dob);">
+                            <img src="../img/cal.jpg" width="16" height="15" border="0"
+                            alt="Calender">
+                    </a> --><font
+                        color="red"> <%=ServletUtility.getErrorMessage("dob", request)%></font></td>
+                </tr>
+                
+            <H2>
+                <font color="green"> <%=ServletUtility.getSuccessMessage(request)%>
+                </font>
+            </H2>
+                
+                <tr>
+                    <th></th>
+                    <td colspan="2"><input type="submit" name="operation"
+                        value="<%=MyProfileCtl.OP_CHANGE_MY_PASSWORD %>"> &nbsp; <input type="submit"
+                        name="operation" value="<%=MyProfileCtl.OP_SAVE %>"> &nbsp;</td>
+                </tr>
+            </table>
+    </form>
+    </center>
+    <%@ include file="Footer.jsp"%>
 
 
-			<table>
-				<tr>
-					<th align="left">LoginId<span style="color: red">*</span> : </th>
-					<td>
-						<input type="text" 
-								name="login" 
-								size="29"
-								value="<%=DataUtility.getStringData(bean.getLogIn())%>"
-								readonly="readonly">
-								
-						<font color="red"> 
-								<%=ServletUtility.getErrorMessage("login", request)%>
-						</font>
-					</td>
-				</tr>
-				<tr>
-					<th style="padding: 4px"></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th align="left">First Name<span style="color: red">*</span> : </th>
-					<td>
-						<input type="text" 
-								name="firstName" 
-								size="29"
-								value="<%=DataUtility.getStringData(bean.getFirstName())%>">
-					
-					<font color="red"> 
-						<%=ServletUtility.getErrorMessage("firstName", request)%>
-					</font>
-				</td>
-				</tr>
-				<tr>
-					<th style="padding: 4px"></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th align="left">Last Name<span style="color: red">*</span> : </th>
-					<td>
-						<input type="text" 
-								name="lastName" 
-								size="29"
-								value="<%=DataUtility.getStringData(bean.getLastName())%>">
-						
-						<font color="red"> 
-							<%=ServletUtility.getErrorMessage("lastName", request)%>
-						</font>
-					</td>
-				</tr>
-				<tr>
-					<th style="padding: 4px"></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th align="left">Gender <span style="color: red">*</span> : </th>
-					<td>
-						<%
-							HashMap map = new HashMap();
-							map.put("Male", "Male");
-							map.put("Female", "Female");
-
-							String htmlList = HTMLUtility.getList("gender", bean.getGender(), map);
-						%> 
-						<%=htmlList%>
-					</td>
-				</tr>
-				<tr>
-					<th style="padding: 4px"></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th align="left">Mobile No<span style="color: red">*</span> : </th>
-					<td>
-						<input type="text" 
-								name="mobileNo" 
-								maxlength="10"
-								size="29"
-								value="<%=DataUtility.getStringData(bean.getMobileNo())%>">
-					
-					<font color="red"> 
-						<%=ServletUtility.getErrorMessage("mobileNo", request)%>
-					</font>
-				</td>
-				</tr>
-				<tr>
-					<th style="padding: 4px"></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th align="left">Date Of Birth (mm/dd/yyyy)<span style="color: red">*</span> : </th>
-					<td>
-						<input type="text" 
-								id="udate"
-								name="dob" 
-								size="29"
-								readonly="readonly"
-								value="<%=DataUtility.getDateString(bean.getDob())%>">
-					
-					<td style="position: fixed;">
-						<font color="red"> 
-							<%=ServletUtility.getErrorMessage("dob", request)%>
-						</font>
-					</td>
-					</td>
-				</tr>
-
-				<h2>
-					<font color="green"> 
-						<%=ServletUtility.getSuccessMessage(request)%>
-					</font>
-				</h2>
-				<tr>
-					<th style="padding: 4px"></th>
-					<td></td>
-				</tr>
-
-				<tr>
-					<th></th>
-					<td colspan="2">
-						<input type="submit" 
-								name="operation"
-								value="<%=MyProfileCtl.OP_SAVE%>"> 
-					&nbsp;
-					
-						<input type="submit" 
-								name="operation"
-								value="<%=MyProfileCtl.OP_CHANGE_MY_PASSWORD%>"> 
-					
-					&nbsp;
-					</td>
-				</tr>
-			</table>
-	</form>
-	</center>
-	<%@ include file="Footer.jsp"%>
 </body>
 </html>
